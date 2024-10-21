@@ -14,12 +14,20 @@ namespace InstitutoWeb.Services.Login
             _jsRuntime = jsRuntime;
         }
 
-        public async Task<string> SignInWithEmailPassword(string email, string password)
+        public async Task<string> SignInWithEmailPassword(string email, string password, bool rememberPassword)
         {
             var userId = await _jsRuntime.InvokeAsync<string>("firebaseAuth.signInWithEmailPassword", email, password);
             if (userId != null)
             {
-                await _jsRuntime.InvokeVoidAsync("localStorageHelper.setItem", UserIdKey, userId);
+                if (rememberPassword)
+                {
+                    await _jsRuntime.InvokeVoidAsync("localStorageHelper.setItem", UserIdKey, userId);
+                }
+
+                else
+                {
+                    await _jsRuntime.InvokeVoidAsync("sesionStorageHelper.setItem", UserIdKey, userId);
+                }
                 OnChangeLogin?.Invoke();
             }
             return userId;
@@ -29,17 +37,30 @@ namespace InstitutoWeb.Services.Login
         {
             await _jsRuntime.InvokeVoidAsync("firebaseAuth.signOut");
             await _jsRuntime.InvokeVoidAsync("localStorageHelper.removeItem", UserIdKey);
+            await _jsRuntime.InvokeVoidAsync("sesionStorageHelper.removeItem", UserIdKey);
+
             OnChangeLogin?.Invoke();
         }
-
-        public async Task<string> GetUserId()
+        public async Task<string> createUserWithEmailAndPassword(string email, string password)
+        {
+            var userId = await _jsRuntime.InvokeAsync<string>("firebaseAuth.createUserWithEmailAndPassword", email, password);
+            return userId;
+        }
+        public async Task<string> GetUserIdInLocalStorage()
         {
             return await _jsRuntime.InvokeAsync<string>("localStorageHelper.getItem", UserIdKey);
+        }
+        public async Task<string> GetUserIdInSesionStorage()
+        {
+            return await _jsRuntime.InvokeAsync<string>("sesionStorageHelper.getItem", UserIdKey);
         }
 
         public async Task<bool> IsUserAuthenticated()
         {
-            var userId = await GetUserId();
+            var userId = await GetUserIdInLocalStorage();
+            if (string.IsNullOrEmpty(userId))
+            { userId = await GetUserIdInLocalStorage(); }
+            var userIdSesionStorage = await GetUserIdInLocalStorage();
             return !string.IsNullOrEmpty(userId);
         }
     }

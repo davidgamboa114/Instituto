@@ -9,7 +9,7 @@
 				<data android:scheme="institutoapp.isp20.com" android:host="oauth2redirect" />
 			</intent-filter>
 		</activity>
-		
+
 		<activity android:name=".WebAuthenticationCallbackActivity"
 			  android:exported="true"
 			  android:noHistory="true">
@@ -17,7 +17,7 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="com.googleusercontent.apps.243005933117-9jrpnqa9f296itha7jlaa3nmh23et4vu"
+				<data android:scheme="com.googleusercontent.apps.650704544224-e8jtoitpl2591u81scf07ecdsnoafnlo"
 					  android:host="oauth2redirect" />
 			</intent-filter>
 		</activity>

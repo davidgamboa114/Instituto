@@ -61,20 +61,29 @@ namespace InstitutoApp.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a 243005933117-9jrpnqa9f296itha7jlaa3nmh23et4vu.
+        ///   Busca una cadena traducida similar a AIzaSyD-rP_1NCJ3AxO880gqXI-ZL0iTenyPbkE.
         /// </summary>
-        internal static string client_id {
+        internal static string apikeyfirebase {
             get {
-                return ResourceManager.GetString("client_id", resourceCulture);
+                return ResourceManager.GetString("apikeyfirebase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://datainstituto.azurewebsites.net/api/.
+        ///   Busca una cadena traducida similar a institutooauth2-8b732.firebaseapp.com.
         /// </summary>
-        internal static string UrlApi {
+        internal static string authdomainfirebase {
             get {
-                return ResourceManager.GetString("UrlApi", resourceCulture);
+                return ResourceManager.GetString("authdomainfirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 650704544224-e8jtoitpl2591u81scf07ecdsnoafnlo.
+        /// </summary>
+        internal static string client_id {
+            get {
+                return ResourceManager.GetString("client_id", resourceCulture);
             }
         }
     }
